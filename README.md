@@ -1,6 +1,6 @@
 # Job Desk
 ```
-- Fungsi Graph
+- Fungsi Graph                         ->
 - Algoritma masukin musik ke graph     ->
 - Fungsi Queue Playlist                -> Joice
 - Menu (input + new musik)             -> Mario
