@@ -1,11 +1,11 @@
 # Job Desk
 ```
-- Fungsi Graph (struktur graph)                ->
-- Algoritma masukin musik ke graph             ->
+- Fungsi Graph (struktur graph)                -> 
+- Algoritma masukin musik ke graph             -> Yovan
 - Fungsi Queue Playlist (queue,push,pop)       -> Joice
 - Fungsi Search + Menu (add music)             -> Mario
 - Fungsi Stack (stack,push,pop)                -> Michael
-- Fungsi Sync Queue dgn Stack (musik sebelum)  ->
+- Fungsi Sync Queue dgn Stack (musik sebelum)  -> 
 
 Isi Node graph:
 Nama musik
