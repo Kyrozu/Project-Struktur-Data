@@ -1,6 +1,6 @@
 # Job Desk
 ```
-- Fungsi Graph (struktur graph)                -> Yovan
+- Fungsi Tree (struktur tree)                -> Yovan
 - Algoritma masukin musik ke graph             -> Kenneth
 - Fungsi Queue Playlist (queue,push,pop)       -> Joice
 - Fungsi Search + Menu (add music)             -> Mario
