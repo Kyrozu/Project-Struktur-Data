@@ -39,26 +39,26 @@ class MusicApp:
         print(f"Musik '{target}' tidak ditemukan dalam grafik.")
         return []
 
-    def add_new_music_to_graph(self, music):
-        """Menambahkan musik baru ke grafik."""
-        if music not in self.graph:
-            self.graph.append(music)
-            print(f"'{music}' berhasil ditambahkan ke grafik.")
-        else:
-            print(f"'{music}' sudah ada di grafik.")
+    # def add_new_music_to_graph(self, music):
+    #     """Menambahkan musik baru ke grafik."""
+    #     if music not in self.graph:
+    #         self.graph.append(music)
+    #         print(f"'{music}' berhasil ditambahkan ke grafik.")
+    #     else:
+    #         print(f"'{music}' sudah ada di grafik.")
 
-    def add_music_to_queue(self, music):
-        """Menambahkan musik ke antrean."""
-        self.queue.append(music)
-        print(f"'{music}' berhasil ditambahkan ke antrean.")
+    # def add_music_to_queue(self, music):
+    #     """Menambahkan musik ke antrean."""
+    #     self.queue.append(music)
+    #     print(f"'{music}' berhasil ditambahkan ke antrean.")
 
-    def play_music_from_queue(self):
-        """Memainkan musik pertama dalam antrean."""
-        if self.queue:
-            playing = self.queue.pop(0)
-            print(f"Sedang memainkan: {playing}")
-        else:
-            print("Antrean kosong. Tidak ada musik yang bisa dimainkan.")
+    # def play_music_from_queue(self):
+    #     """Memainkan musik pertama dalam antrean."""
+    #     if self.queue:
+    #         playing = self.queue.pop(0)
+    #         print(f"Sedang memainkan: {playing}")
+    #     else:
+    #         print("Antrean kosong. Tidak ada musik yang bisa dimainkan.")
 
     def show_menu(self):
         """Menampilkan menu untuk pengguna."""
@@ -74,7 +74,7 @@ class MusicApp:
 
             if choice == "1":
                 music = input("Masukkan nama musik baru: ")
-                self.add_new_music_to_graph(music)
+                # Punya Kenneth
 
             elif choice == "2":
                 print("Rekomendasi musik: Song X, Song Y, Song Z")
@@ -91,7 +91,7 @@ class MusicApp:
                     
                     choice = int(input("Pilih nomor musik untuk ditambahkan ke antrean: "))
                     if 1 <= choice <= len(results):
-                        self.add_music_to_queue(results[choice - 1])
+                        # self.add_music_to_queue(results[choice - 1]) Punya Joice
                     else:
                         print("Pilihan tidak valid.")
                 else:
