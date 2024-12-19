@@ -23,6 +23,9 @@ class stack:
             self.head = self.head.next
             return popped
         
+    def is_empty(self):
+        return self.head is None
+        
     def print_stack(self):
         temp = self.head
         while temp:
