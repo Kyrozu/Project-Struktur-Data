@@ -1,23 +1,43 @@
-#code menu mario
 class MusicApp:
     def __init__(self):
         self.graph = []  # Grafik musik (daftar musik)
         self.queue = []  # Antrean musik
 
-    def search_music(self, query):
+    def search_music(self, start, target):
         """
-        Fungsi untuk mencari musik berdasarkan query.
-        
+        Fungsi untuk mencari musik menggunakan metode graph traversal.
+
         Parameter:
-        query (str): Kata kunci pencarian musik.
+        start (str): Musik awal untuk memulai pencarian.
+        target (str): Musik yang dicari.
 
         Return:
-        list: Daftar hasil pencarian musik.
+        list: Jalur menuju musik yang dicari, atau pesan jika tidak ditemukan.
         """
-        # Simulasi hasil pencarian musik (bisa diintegrasikan dengan API)
-        available_music = ["Song A", "Song B", "Song C", "Song D"]
-        results = [song for song in available_music if query.lower() in song.lower()]
-        return results
+        from collections import deque
+
+        if start not in self.graph:
+            print(f"Musik '{start}' tidak ditemukan dalam grafik.")
+            return []
+
+        visited = set()
+        queue = deque([(start, [start])])
+
+        while queue:
+            current, path = queue.popleft()
+
+            if current == target:
+                print(f"Musik '{target}' ditemukan dengan jalur: {' -> '.join(path)}")
+                return path
+
+            visited.add(current)
+
+            for neighbor in self.graph.get(current, []):
+                if neighbor not in visited:
+                    queue.append((neighbor, path + [neighbor]))
+
+        print(f"Musik '{target}' tidak ditemukan dalam grafik.")
+        return []
 
     def add_new_music_to_graph(self, music):
         """Menambahkan musik baru ke grafik."""
