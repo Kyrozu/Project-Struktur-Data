@@ -30,7 +30,7 @@ class MusicQueue:
             val = self.que[self.front]
             self.que[self.front] = None
             self.front += 1
-            # print(f"'{val.get_judul()}' has been removed from the Queue!")
+            print(f"'{val.get_judul()}' has been removed from the Queue!")
             return val
         else:
             print("Queue is Empty")
@@ -61,7 +61,7 @@ class SyncQueueStack:
         self.stack.push(current_song)
 
         # Putar lagu (simulasi dengan audioTest)
-        play_youtube_audio(current_song.get_link(),initial_volume=50)
+        play_youtube_audio(current_song.get_link())
 
     def prev_music(self):
         if self.stack.is_empty():
@@ -86,13 +86,13 @@ playlist = SyncQueueStack(queue, stack)
 
 # Tambahkan lagu ke playlist
 
-stack.push(Node('HISTORY', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop'))
-stack.push(Node('Digital Circus', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
+queue.push(Node('HISTORY', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop'))
+queue.push(Node('Digital Circus', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
 
 
 # Operasi
-# playlist.play_music()  # Putar lagu pertama
-# playlist.play_music()  # Putar lagu kedua
-playlist.prev_music()  # Undo ke lagu sebelumnya
-playlist.play_music()  # Putar lagu berikutnya
+playlist.play_music()  # Putar lagu pertama
+playlist.play_music()  # Putar lagu kedua
+# playlist.prev_music()  # Undo ke lagu sebelumnya
+# playlist.play_music()  # Putar lagu berikutnya
 
