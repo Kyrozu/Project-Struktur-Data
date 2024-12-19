@@ -42,5 +42,5 @@ def play_youtube_audio(youtube_url, initial_volume=50):
                     break
 
 # Input YouTube URL (tidak bisa yang dalam playlist private)
-youtube_url = "https://www.youtube.com/watch?v=-pHfPJGatgE"    # Sparkle | Your Name AMV
-play_youtube_audio(youtube_url, initial_volume=50)
+# youtube_url = "https://www.youtube.com/watch?v=-pHfPJGatgE"    # Sparkle | Your Name AMV
+# play_youtube_audio(youtube_url, initial_volume=50)
