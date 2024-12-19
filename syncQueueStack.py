@@ -1,41 +1,7 @@
 from audioTest import play_youtube_audio
-# from queuee import MusicQueue
+from queuee import MusicQueue
 from stack import stack
 from node import *
-
-# untuk test sementara
-class MusicQueue:
-    def __init__(self, capacity):
-        self.capacity = capacity
-        self.que = [None] * self.capacity
-        self.front = 0
-        self.rear = -1
-
-    def isEmpty(self):
-        return self.front == self.rear + 1
-    
-    def isFull(self):
-        return self.rear == self.capacity - 1
-    
-    def push(self, node):
-        if not self.isFull():
-            self.que[self.rear + 1] = node
-            self.rear += 1
-            # print(f"'{node.get_artist()}' has been added to the Queue!")
-        else:
-            print("Queue is Full")
-
-    def pop(self):
-        if not self.isEmpty():
-            val = self.que[self.front]
-            self.que[self.front] = None
-            self.front += 1
-            print(f"'{val.get_judul()}' has been removed from the Queue!")
-            return val
-        else:
-            print("Queue is Empty")
-            return None
-
 
 class SyncQueueStack:
     def __init__(self, queue, stack):
@@ -69,16 +35,17 @@ class SyncQueueStack:
             return
 
         # Ambil lagu terakhir dari stack
+        curr_song = self.stack.pop()
         last_song = self.stack.pop()
 
-        # Masukkan kembali ke awal playlist TODO: ganti function di file asli blm ada
-        self.queue.push(last_song)
+        # Masukkan kembali ke awal playlist 
+        self.queue.addToFront(last_song)
 
         print(f"Re-added {last_song.get_judul()} by {last_song.get_artist()} to the playlist as the next song.")
 
 
 # Inisialisasi Queue dan Stack
-queue = MusicQueue(capacity=5)
+queue = MusicQueue()
 stack = stack()
 
 # Sinkronisasi queue dan stack
@@ -90,9 +57,9 @@ queue.push(Node('HISTORY', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-
 queue.push(Node('Digital Circus', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
 
 
-# Operasi
+# # Operasi
 playlist.play_music()  # Putar lagu pertama
 playlist.play_music()  # Putar lagu kedua
-# playlist.prev_music()  # Undo ke lagu sebelumnya
-# playlist.play_music()  # Putar lagu berikutnya
+playlist.prev_music()  # Undo ke lagu sebelumnya
+playlist.play_music()  # Putar lagu berikutnya
 
