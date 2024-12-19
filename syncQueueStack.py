@@ -1,7 +1,7 @@
 from audioTest import play_youtube_audio
 from queuee import MusicQueue
 from stack import stack
-from node import *
+from node import Node
 
 class SyncQueueStack:
     def __init__(self, queue, stack):
@@ -19,15 +19,17 @@ class SyncQueueStack:
             print("No songs in the playlist.")
             return
 
+        self.displayQueueStack()
+
         # Ambil lagu dari queue
         current_song = self.queue.pop()
-        print(f"Playing: {current_song.get_judul()} by {current_song.get_artist()}")
-
-        # Tambahkan ke stack
-        self.stack.push(current_song)
+        # print(f"Playing: {current_song.get_judul()} by {current_song.get_artist()}")
 
         # Putar lagu (simulasi dengan audioTest)
         play_youtube_audio(current_song.get_link())
+
+        # Tambahkan ke stack TODO: some how kalo gk ada stack di awal bugged
+        self.stack.push(current_song)
 
     def prev_music(self):
         if self.stack.is_empty():
@@ -39,27 +41,41 @@ class SyncQueueStack:
         last_song = self.stack.pop()
 
         # Masukkan kembali ke awal playlist 
+        self.queue.addToFront(curr_song)
         self.queue.addToFront(last_song)
 
         print(f"Re-added {last_song.get_judul()} by {last_song.get_artist()} to the playlist as the next song.")
 
+    def displayQueueStack(self):
+        self.queue.display_queue()
+        index = self.queue.getIndex()
+        if self.stack.is_empty() != True:
+            print("stack")
+            self.stack.print_stack(index)
+            
+        self.queue.setIndex(1)
+        
 
 # Inisialisasi Queue dan Stack
-queue = MusicQueue()
-stack = stack()
+# queue = MusicQueue()
+# stack = stack()
 
-# Sinkronisasi queue dan stack
-playlist = SyncQueueStack(queue, stack)
+# # Sinkronisasi queue dan stack
+# playlist = SyncQueueStack(queue, stack)
 
-# Tambahkan lagu ke playlist
-
-queue.push(Node('HISTORY', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop'))
-queue.push(Node('Digital Circus', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
+# # Tambahkan lagu ke playlist
+# queue.push(Node('c', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
+# queue.push(Node('b', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop'))
+# queue.push(Node('a', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
+# stack.push(Node('d', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
+# stack.push(Node('e', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
 
 
 # # Operasi
-playlist.play_music()  # Putar lagu pertama
-playlist.play_music()  # Putar lagu kedua
-playlist.prev_music()  # Undo ke lagu sebelumnya
-playlist.play_music()  # Putar lagu berikutnya
+# playlist.play_music()
+# playlist.play_music() 
+# playlist.prev_music()  # Undo ke lagu sebelumnya
+# print("prev")
+# playlist.play_music()  # Putar lagu berikutnya
+# playlist.displayQueueStack() 
 

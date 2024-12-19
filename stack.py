@@ -1,7 +1,4 @@
-class Node:
-    def __init__(self,data):
-        self.data = data
-        self.next = None
+from node import Node
 
 class stack:
     def __init__(self):
@@ -25,13 +22,14 @@ class stack:
     def is_empty(self):
         return self.head is None
         
-    def print_stack(self):
+    def print_stack(self, index):
         temp = self.head
+        print(f"{index}. {temp.get_judul()} ({temp.get_genre()}) by {temp.get_artist()}")
+        temp = temp.next
         while temp:
-            if temp.next != None:
-                print(temp.get_judul(), end = ",")
-                temp = temp.next
-            else:
-                print(temp.get_judul(), end = "")
+            index += 1
+            print(f"{index}. {temp.get_judul()} ({temp.get_genre()}) by {temp.get_artist()}")
+            if temp.next == None:
                 break
-        print()
+            else:
+                temp = temp.next

@@ -17,13 +17,3 @@ class Node:
 
     def get_genre(self):
         return self.genre
-
-
-# Create a new node
-# song_node = Node("Song Title", "Artist Name", "https://link.com", "Pop")
-
-# Get specific attributes
-# print(song_node.get_judul())  # Returns: 'Song Title'
-# print(song_node.get_artist())  # Returns: 'Artist Name'
-# print(song_node.get_link())  # Returns: 'https://link.com'
-# print(song_node.get_genre())  # Returns: 'Pop'

@@ -4,6 +4,7 @@ class MusicQueue:
     def __init__(self):
         self.front = None
         self.rear = None
+        self.index = 1
 
     def isEmpty(self):
         return self.front is None
@@ -27,7 +28,7 @@ class MusicQueue:
         if self.front is None:
             self.rear = None
 
-        print(f"'{val.get_judul()}' by {val.get_artist()} has been removed from the Queue!")
+        # print(f"'{val.get_judul()}' by {val.get_artist()} has been removed from the Queue!")
         return val
 
     def addToFront(self, node):
@@ -38,17 +39,30 @@ class MusicQueue:
             self.front = node
         print(f"'{node.get_judul()}' by {node.get_artist()} has been added to the front of the Queue!")
 
+
     def display_queue(self):
-        if self.isEmpty():
-            print("Queue is empty.")
-        else:
-            print("Music in Queue:")
-            current = self.front
-            index = 1
-            while current:
-                print(f"{index}. {current.get_judul()} ({current.get_genre()}) by {current.get_artist()}")
-                current = current.next
-                index += 1
+        global index            # biar mengubah index di atas
+        current = self.front
+        nodes = []              # temp list
+
+        # masukan ke temp list
+        while current:
+            nodes.append(current)
+            current = current.next  # next node
+
+        # print mundur
+        for node in reversed(nodes):
+            print()
+            print(f"{self.index}. {node.get_judul()} ({node.get_genre()}) by {node.get_artist()}", end="")
+            self.index += 1
+        print(" - Now Playing")
+    
+    def setIndex(self, index):
+        self.index = index
+
+    def getIndex(self):
+        return self.index
+
 
 # Contoh Penggunaan Queue
 # music1 = Node("Die With A Smile", "Lady Gaga and Bruno Mars", "https://music.youtube.com/watch?v=RVDCeVG90Rg&si=gtn46KrEXj01Da6O", "Pop")
