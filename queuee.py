@@ -1,61 +1,70 @@
+from node import Node
+
 class MusicQueue:
-    def __init__(self, capacity):
-        self.capacity = capacity
-        self.que = [None] * self.capacity
-        self.front = 0
-        self.rear = -1
+    def __init__(self):
+        self.front = None
+        self.rear = None
 
     def isEmpty(self):
-        return self.front == self.rear + 1
+        return self.front is None
 
-    def isFull(self):
-        return self.rear == self.capacity - 1
-
-    def reset(self):
-        self.front = 0
-        self.rear = -1
-
-    def push(self, data):
-        if not self.isFull():
-            self.que[self.rear + 1] = data
-            self.rear += 1
-            print(f"'{data['title']}' has been added to the Queue!")
+    def push(self, node):
+        if self.isEmpty():
+            self.front = self.rear = node
         else:
-            print("Queue is Full")
+            self.rear.next = node
+            self.rear = node
+        print(f"'{node.judul}' by {node.artist} has been added to the Queue!")
 
     def pop(self):
-        if not self.isEmpty():
-            val = self.que[self.front]
-            self.que[self.front] = None
-            self.front += 1
-            print(f"'{val['title']}' has been removed from the Queue!")
-            return val
-        else:
+        if self.isEmpty():
             print("Queue is Empty")
             return None
 
-    def peek(self):
-        return self.que[self.front]
+        val = self.front
+        self.front = self.front.next
+
+        if self.front is None:
+            self.rear = None
+
+        print(f"'{val.judul}' by {val.artist} has been removed from the Queue!")
+        return val
+
+    def addToFront(self, node):
+        if self.isEmpty():
+            self.front = self.rear = node
+        else:
+            node.next = self.front
+            self.front = node
+        print(f"'{node.judul}' by {node.artist} has been added to the front of the Queue!")
 
     def display_queue(self):
         if self.isEmpty():
             print("Queue is empty.")
         else:
             print("Music in Queue:")
-            for indx, music in enumerate(self.que[self.front:self.rear + 1], start=1):
-                if music:
-                    print(f"{indx}. {music['title']} ({music['genre']}) by {music['singer']}")
+            current = self.front
+            index = 1
+            while current:
+                print(f"{index}. {current.judul} ({current.genre}) by {current.artist}")
+                current = current.next
+                index += 1
 
 # Contoh Penggunaan Queue
-music1 = {'title': 'Shape of You', 'genre': 'Pop', 'singer': 'Ed Sheeran'}
-music2 = {'title': 'Blinding Lights', 'genre': 'Synth-Pop', 'singer': 'The Weeknd'}
-music3 = {'title': 'Your Name AMV', 'genre': 'Anime', 'singer': 'Radwimps'}
+music1 = Node("Die With A Smile", "Lady Gaga and Bruno Mars", "https://music.youtube.com/watch?v=RVDCeVG90Rg&si=gtn46KrEXj01Da6O", "Pop")
+music2 = Node("APT", "ROSÉ and Bruno Mars", "https://music.youtube.com/watch?v=58-AKkNMZNQ&si=pRT9xgwATww9wfE_", "Pop")
+music3 = Node("TOUCH", "KATSEYE", "https://music.youtube.com/watch?v=H5tO_9wZ0hg&si=vgK3xNs7qQv2WWgg", "K-Pop")
+music4 = Node("Sunflower", "Post Malone and Swae Lee", "https://music.youtube.com/watch?v=r7Rn4ryE_w8&si=irp2dsjusjfBzqEn", "Hip-Hop")
 
-playlist = MusicQueue(capacity=5)
+playlist = MusicQueue()
 
 playlist.push(music1)
 playlist.push(music2)
 playlist.push(music3)
+
+playlist.display_queue()
+
+playlist.addToFront(music4)
 
 playlist.display_queue()
 
