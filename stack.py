@@ -7,8 +7,7 @@ class stack:
     def __init__(self):
         self.head = None
 
-    def push(self,data):
-        new_node = Node(data)
+    def push(self, new_node):
         if self.head == None:
             self.head = new_node
         else:
@@ -19,7 +18,7 @@ class stack:
         if self.head == None:
             return None
         else:
-            popped = self.head.data
+            popped = self.head
             self.head = self.head.next
             return popped
         
@@ -30,9 +29,9 @@ class stack:
         temp = self.head
         while temp:
             if temp.next != None:
-                print(temp.data, end = ",")
+                print(temp.get_judul(), end = ",")
                 temp = temp.next
             else:
-                print(temp.data, end = "")
+                print(temp.get_judul(), end = "")
                 break
         print()

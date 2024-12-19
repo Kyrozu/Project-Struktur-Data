@@ -26,12 +26,12 @@ def play_youtube_audio(youtube_url, initial_volume=50):
             media = instance.media_new(audio_url)
             player.set_media(media)
             
-            print(f"Playing: {info_dict.get('title')}")
+            # print(f"Playing: {info_dict.get('title')}")
             player.audio_set_volume(initial_volume)  # Set initial volume
             player.play()
 
             # Wait until the audio starts playing
-            time.sleep(2)  # Allow time for the player to start
+            # time.sleep(2)  # Allow time for the player to start
 
             # Keep the script alive while the audio plays
             while True:
