@@ -6,34 +6,27 @@ class Node:
         self.genre = genre
         self.next = None
 
-    def get(self, attribute=None):
-        # If no specific attribute is requested, return the entire node's data
-        if attribute is None:
-            return {
-                'judul': self.judul,
-                'artist': self.artist,
-                'link': self.link,
-                'genre': self.genre
-            }
-        # Otherwise, return the requested attribute
-        elif attribute == 'judul':
-            return self.judul
-        elif attribute == 'artist':
-            return self.artist
-        elif attribute == 'link':
-            return self.link
-        elif attribute == 'genre':
-            return self.genre
-        else:
-            print("Invalid attribute requested!")
-            return None
+    def get_judul(self):
+        return self.judul
+
+    def get_artist(self):
+        return self.artist
+
+    def get_link(self):
+        return self.link
+
+    def get_genre(self):
+        return self.genre
+
 
 # Create a new node
 song_node = Node("Song Title", "Artist Name", "https://link.com", "Pop")
 
 # Get all attributes
-print(song_node.get())  # Returns all attributes as a dictionary
+print(song_node.get_all())  # Returns all attributes as a dictionary
 
-# Get a specific attribute
-print(song_node.get('judul'))  # Returns: 'Song Title'
-print(song_node.get('artist'))  # Returns: 'Artist Name'
+# Get specific attributes
+print(song_node.get_judul())  # Returns: 'Song Title'
+print(song_node.get_artist())  # Returns: 'Artist Name'
+print(song_node.get_link())  # Returns: 'https://link.com'
+print(song_node.get_genre())  # Returns: 'Pop'
