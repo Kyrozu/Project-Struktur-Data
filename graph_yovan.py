@@ -1,4 +1,4 @@
-
+from node import Node
 
 class MusicGraph:
     def __init__(self):
