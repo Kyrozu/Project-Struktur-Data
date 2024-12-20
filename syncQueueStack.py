@@ -3,6 +3,9 @@ from queuee import MusicQueue
 from stack import stack
 from node import Node
 
+"""
+pip install yt-dlp python-vlc
+"""
 
 class SyncQueueStack:
     def __init__(self):
