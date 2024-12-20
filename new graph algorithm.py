@@ -48,6 +48,98 @@ class Graph:
         plt.title('Music Graph Visualization')
         plt.show()
 
+    def recommend_songs(self, song_name):
+        """
+        Recommends 5 songs based on the given song's artist and genre:
+        1. Two songs from the same artist and genre.
+        2. Two songs from the same genre but different artists.
+        3. One song from the same artist but a different genre.
+        
+        :param song_name: The name of the song to base the recommendations on.
+        """
+        if song_name not in self.nodes:
+            print(f"Song '{song_name}' not found in the graph.")
+            return
+        
+        # Retrieve the song node and its related genre and artist
+        song = self.nodes[song_name]
+        artist = None
+        genre = None
+        
+        # Find the artist and genre of the given song
+        for neighbor in self.graph.neighbors(song_name):
+            if self.graph[song_name][neighbor]["relation"] == "by":
+                artist = self.nodes[neighbor]
+            elif self.graph[song_name][neighbor]["relation"] == "in":
+                genre = self.nodes[neighbor]
+        
+        if not artist or not genre:
+            print(f"Couldn't find artist or genre for song '{song_name}'.")
+            return
+        
+        # Helper function to get songs by the same artist and genre
+        def find_songs_by_artist_and_genre(artist, genre):
+            return [
+                n for n in self.graph.neighbors(genre.name)
+                if self.graph[genre.name][n]["relation"] == "in" and
+                any(self.graph[n][a]["relation"] == "by" for a in self.graph.neighbors(n))
+                and self.nodes[n].node_type == "song" and n != song_name
+            ]
+        
+        # Helper function to get songs by the same genre but different artists
+        def find_songs_by_genre_diff_artists(genre):
+            return [
+                n for n in self.graph.neighbors(genre.name)
+                if self.graph[genre.name][n]["relation"] == "in" and
+                self.nodes[n].node_type == "song" and n != song_name
+            ]
+        
+        # Helper function to get songs by the same artist but different genre
+        def find_songs_by_artist_diff_genre(artist):
+            return [
+                n for n in self.graph.neighbors(artist.name)
+                if self.graph[artist.name][n]["relation"] == "by" and
+                self.nodes[n].node_type == "song" and n != song_name
+            ]
+        
+        # 1. Two songs from the same artist and the same genre
+        same_artist_genre_songs = find_songs_by_artist_and_genre(artist, genre)
+        
+        # 2. Two songs from the same genre but different artists
+        same_genre_diff_artists = find_songs_by_genre_diff_artists(genre)
+        
+        # 3. One song from the same artist but a different genre
+        same_artist_diff_genre = find_songs_by_artist_diff_genre(artist)
+        
+        # Track already recommended songs to avoid overlap
+        recommended_songs = set()
+
+        # Prepare the recommendations list
+        recommendations = []
+        
+        # Add 2 songs from the same artist and the same genre
+        for song in random.sample(same_artist_genre_songs, 2) if len(same_artist_genre_songs) >= 2 else []:
+            if song not in recommended_songs:
+                recommendations.append(song)
+                recommended_songs.add(song)
+
+        # Add 2 songs from the same genre but different artists
+        for song in random.sample(same_genre_diff_artists, 2) if len(same_genre_diff_artists) >= 2 else []:
+            if song not in recommended_songs:
+                recommendations.append(song)
+                recommended_songs.add(song)
+        
+        # Add 1 song from the same artist but a different genre
+        for song in random.sample(same_artist_diff_genre, 1) if len(same_artist_diff_genre) >= 1 else []:
+            if song not in recommended_songs:
+                recommendations.append(song)
+                recommended_songs.add(song)
+        
+        # Output recommendations
+        print(f"Recommendations based on '{song_name}':")
+        for rec in recommendations:
+            print(f"- {rec}")
+
 # Example usage
 
 # Create the Graph object
@@ -203,14 +295,10 @@ music_graph.add_edge(song_Gurenge, artist_LiSA, "by")
 music_graph.add_edge(song_Candy_Pop, genre_jpop, "in")
 music_graph.add_edge(song_Candy_Pop, artist_Twice, "by")
 
-# music_graph.add_song("kpop", "Whiplash", "Aespa")
-# music_graph.add_song("kpop", "Last Festival", "TWS")
-# music_graph.add_song("kpop", "Why Why", "Shannon")
-# music_graph.add_song("jpop", "Gurenge", "LiSA")
-# music_graph.add_song("jpop", "Candy Pop", "Twice")
+
+music_graph.recommend_songs("Blinding Lights")
 
 # Display the graph
 music_graph.display_graph()
 
 # Recommend songs based on "Blinding Lights"
-# music_graph.recommend_songs("Blinding Lights")
