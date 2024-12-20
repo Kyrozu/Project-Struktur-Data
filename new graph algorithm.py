@@ -190,28 +190,28 @@ class Graph:
 # Initialize the graph
 music_graph = Graph()
 
-# Add genres
-genre_pop = Node(genre="Pop")
-genre_rock = Node(genre="Rock")
-
-# Add artists
-artist_the_weeknd = Node(artist="The Weeknd")
-artist_queen = Node(artist="Queen")
-
 # Add songs
 song_blinding_lights = Node(judul="Blinding Lights", artist="The Weeknd", link="https://link-to-blinding-lights", genre="Pop")
 song_bohemian_rhapsody = Node(judul="Bohemian Rhapsody", artist="Queen", link="https://link-to-bohemian-rhapsody", genre="Rock")
+song_APT = Node(judul="APT", artist="rose", link="https://link-to-bohemian-rhapsody", genre="Pop")
+song_Espresso = Node(judul="Espresso", artist="Sabrina Carpenter", link="https://link-to-bohemian-rhapsody", genre="Pop")
+song_On_The_Ground = Node(judul="On The Ground", artist="rose", link="https://link-to-bohemian-rhapsody", genre="kPop")
 
 # Add nodes to the graph
-music_graph.add_node(genre_pop)
-music_graph.add_node(genre_rock)
-music_graph.add_node(artist_the_weeknd)
-music_graph.add_node(artist_queen)
 music_graph.add_node(song_blinding_lights)
 music_graph.add_node(song_bohemian_rhapsody)
+music_graph.add_node(song_APT)
+music_graph.add_node(song_Espresso)
+music_graph.add_node(song_On_The_Ground)
 
-music_graph.add_edge(song_blinding_lights, song_bohemian_rhapsody, "same genre")
+music_graph.add_edge(song_APT, song_blinding_lights, "same genre")
+music_graph.add_edge(song_Espresso, song_APT, "same genre")
+music_graph.add_edge(song_On_The_Ground, song_APT, "same artist")
 
-music_graph.display_graph()
+
 # Recommend songs based on 'Blinding Lights'
 music_graph.recommend_songs("Blinding Lights")
+
+music_graph.display_graph()
+
+
