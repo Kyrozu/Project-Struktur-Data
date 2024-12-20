@@ -3,6 +3,7 @@ from queuee import MusicQueue
 from stack import stack
 from node import Node
 
+
 class SyncQueueStack:
     def __init__(self, queue, stack):
         self.queue = queue
