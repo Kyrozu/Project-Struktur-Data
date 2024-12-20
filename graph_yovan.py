@@ -1,3 +1,5 @@
+from node import Node
+
 class MusicGraph:
     def __init__(self):
         # Root node for the music graph
