@@ -5,9 +5,9 @@ from node import Node
 
 
 class SyncQueueStack:
-    def __init__(self, queue, stack):
-        self.queue = queue
-        self.stack = stack
+    def __init__(self):
+        self.queue = MusicQueue()
+        self.stack = stack()
 
     def get_queue(self):
         return self.queue
@@ -51,30 +51,26 @@ class SyncQueueStack:
         self.queue.display_queue()
         index = self.queue.getIndex()
         if self.stack.is_empty() != True:
-            print("stack")
             self.stack.print_stack(index)
             
         self.queue.setIndex(1)
         
 
 # Inisialisasi Queue dan Stack
-# queue = MusicQueue()
-# stack = stack()
-
-# # Sinkronisasi queue dan stack
-# playlist = SyncQueueStack(queue, stack)
+playlist = SyncQueueStack()
 
 # # Tambahkan lagu ke playlist
-# queue.push(Node('c', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
-# queue.push(Node('b', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop'))
-# queue.push(Node('a', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
+playlist.get_queue().push(Node('c', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
+playlist.get_queue().push(Node('b', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop'))
+playlist.get_queue().push(Node('a', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
 # stack.push(Node('d', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
 # stack.push(Node('e', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
 
 
+
 # # Operasi
-# playlist.play_music()
-# playlist.play_music() 
+playlist.play_music()
+playlist.play_music() 
 # playlist.prev_music()  # Undo ke lagu sebelumnya
 # print("prev")
 # playlist.play_music()  # Putar lagu berikutnya
