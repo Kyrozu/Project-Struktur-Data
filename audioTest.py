@@ -15,13 +15,13 @@ def play_youtube_audio(youtube_url, initial_volume=50, max_duration=20):
         'no_warnings': True,         # no warnings
     }
 
-    # extract audio dari URL youtube
+    # extract audio dari URL youtube nya
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(youtube_url, download=False)
         audio_url = info.get('url', None)
 
         if audio_url:
-            # Initialize VLC and play audio
+            # initialize VLC and play audio
             instance = vlc.Instance()
             player = instance.media_player_new()
             media = instance.media_new(audio_url)

@@ -55,7 +55,7 @@ class MusicQueue:
             print()
             print(f"{self.index}. {node.get_judul()} ({node.get_genre()}) by {node.get_artist()}", end="")
             self.index += 1
-        print(" - Now Playing")
+        print(" ---------- NOW PLAYING")
     
     def setIndex(self, index):
         self.index = index
