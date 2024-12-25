@@ -22,12 +22,13 @@ class stack:
     def is_empty(self):
         return self.head is None
         
-    def print_stack(self, index):
+    def print_stack(self):
+        index = -1
         temp = self.head
         print(f"{index}. {temp.get_judul()} ({temp.get_genre()}) by {temp.get_artist()}")
         temp = temp.next
         while temp:
-            index += 1
+            index -= 1
             print(f"{index}. {temp.get_judul()} ({temp.get_genre()}) by {temp.get_artist()}")
             if temp.next == None:
                 break

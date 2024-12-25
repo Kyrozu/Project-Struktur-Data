@@ -41,7 +41,6 @@ class MusicQueue:
 
 
     def display_queue(self):
-        global index            # biar mengubah index di atas
         current = self.front
         nodes = []              # temp list
 
@@ -50,19 +49,15 @@ class MusicQueue:
             nodes.append(current)
             current = current.next  # next node
 
+        index = len(nodes) - 1 
+
         # print mundur
         for node in reversed(nodes):
             print()
-            print(f"{self.index}. {node.get_judul()} ({node.get_genre()}) by {node.get_artist()}", end="")
-            self.index += 1
-        print(" ---------- NOW PLAYING")
+            print(f" {index}. {node.get_judul()} ({node.get_genre()}) by {node.get_artist()}", end="")
+            index -= 1
+        print(" ----------------- NOW PLAYING")
     
-    def setIndex(self, index):
-        self.index = index
-
-    def getIndex(self):
-        return self.index
-
 
 # Contoh Penggunaan Queue
 # music1 = Node("Die With A Smile", "Lady Gaga and Bruno Mars", "https://music.youtube.com/watch?v=RVDCeVG90Rg&si=gtn46KrEXj01Da6O", "Pop")
