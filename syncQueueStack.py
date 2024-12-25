@@ -3,11 +3,6 @@ from queuee import MusicQueue
 from stack import stack
 from node import Node
 
-"""
-pip install yt-dlp python-vlc
-"""
-
-# Nathanael / c14230178
 class SyncQueueStack:
     def __init__(self):
         self.queue = MusicQueue()
@@ -21,47 +16,64 @@ class SyncQueueStack:
 
     def play_music(self):
         if self.queue.isEmpty():
-            print("No songs in the playlist.")
+            print("Playlist Ended")
             return
 
         self.displayQueueStack()
 
         # Ambil lagu dari queue
         current_song = self.queue.pop()
-        # print(f"Playing: {current_song.get_judul()} by {current_song.get_artist()}")
-
-        # Putar lagu (simulasi dengan audioTest)
-        play_youtube_audio(current_song.get_link())
 
         # Tambahkan ke stack
         self.stack.push(current_song)
 
+        # Putar lagu (dengan audioTest)
+        play_youtube_audio(current_song.get_link(), self)
+
     def prev_music(self):
         if self.stack.is_empty():
-            print("No previous song to go back to.")
+            print("No previous song to go back to")
             return
 
         # Ambil lagu terakhir dari stack
         curr_song = self.stack.pop()
-        last_song = self.stack.pop()
 
+        # Jika ada lagu sebelumnya, kembalikan ke queue
+        if not self.stack.is_empty():
+            last_song = self.stack.pop()
+            self.queue.addToFront(last_song)
 
-        # Masukkan kembali ke awal playlist 
-        self.queue.addToFront(curr_song)
-        self.queue.addToFront(last_song)
+        # lagu tadi ke stack (di tuker sama lagu sebelum) 
+        self.stack.push(curr_song)
 
+        # Putar musik
         self.play_music()
 
-        print(f"Re-added {curr_song.get_judul()} by {curr_song.get_artist()} to the playlist as the next song.")
-
+    def playAll(self):
+        while not self.queue.isEmpty():
+            self.play_music()
 
     def displayQueueStack(self):
         self.queue.display_queue()
-        if self.stack.is_empty() != True:
+        if not self.stack.is_empty():
             self.stack.print_stack()
         print()
-        
 
+    def control_input(self, player):
+        control = input("Press 's' to skip song or 'p' to previous song: ")
+
+        if control.lower() == 's':
+            print("Music skipped")
+            player.stop()
+            self.play_music()
+
+        if control.lower() == 'p' and not self.stack.is_empty():
+            print("Previous Music")
+            player.stop()
+            self.prev_music()
+
+
+# Test
 # Inisialisasi Queue dan Stack
 playlist = SyncQueueStack()
 
@@ -71,12 +83,4 @@ playlist.get_queue().push(Node('HISTORY', 'Whale Taylor', 'https://www.youtube.c
 playlist.get_queue().push(Node("Die With A Smile", "Lady Gaga and Bruno Mars", "https://www.youtube.com/watch?v=kPa7bsKwL-c", "Pop"))
 playlist.get_stack().push(Node("APT", "ROSÉ and Bruno Mars", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop"))
 
-# index "0" = musik yang lagi di putar
-
-# Test
-playlist.play_music() # music 1
-playlist.play_music() # music 2
-
-playlist.prev_music()  # music 1
-playlist.play_music()  # music 2
-
+playlist.playAll()

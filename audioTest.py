@@ -5,10 +5,9 @@ pip install yt-dlp python-vlc
 
 import vlc
 import yt_dlp as youtube_dl
-import time
 
 # Nathanael / c14230178
-def play_youtube_audio(youtube_url, initial_volume=50, max_duration=20):
+def play_youtube_audio(youtube_url, sync, initial_volume=50):
 
     # setting untuk extract audio dari yt
     ydl_opts = {
@@ -33,23 +32,25 @@ def play_youtube_audio(youtube_url, initial_volume=50, max_duration=20):
             player.audio_set_volume(initial_volume)  # setting volume audio
             player.play()
 
-            # waktu mulai lagu
-            start_time = time.time() 
-
             while True:
                 state = player.get_state()
 
                 # stop kalo musik selesai / muncul error
                 if state in [vlc.State.Ended, vlc.State.Error]:
-                    print("Playback finished.")
+                    print("Music finished")
                     break
 
-                # stop musik kalo sudah sampai waktu maksimal
-                elapsed_time = time.time() - start_time
-                if elapsed_time >= max_duration:
-                    print(f"Music stop after {max_duration} second!")
-                    player.stop()
+                # kalo ada interrupt dari user
+                sync.control_input(player)
+
+                # stop kalo playlist habis
+                if sync.get_queue().isEmpty() == True:
                     break
+                
+                    
+
+
+
 
 # test
 # youtube_url = "https://www.youtube.com/watch?v=-pHfPJGatgE"    # Sparkle | Your Name AMV
