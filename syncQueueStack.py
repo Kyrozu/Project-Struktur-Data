@@ -16,7 +16,7 @@ class SyncQueueStack:
 
     def play_music(self):
         if self.queue.isEmpty():
-            print("Playlist Ended")
+            print("\nPlaylist Ended\n")
             return
 
         self.displayQueueStack()
@@ -72,15 +72,20 @@ class SyncQueueStack:
             player.stop()
             self.prev_music()
 
+    def addMusicToPlaylist(self, judul, artist, link, genre):
+        self.queue.push(Node(judul, artist, link, genre))
+    
+    def addMusicToHistory(self, judul, artist, link, genre):
+        self.stack.push(Node(judul, artist, link, genre))
 
 # Test
 # Inisialisasi Queue dan Stack
 playlist = SyncQueueStack()
 
 # Tambahkan lagu ke playlist
-playlist.get_queue().push(Node('Amazing', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop'))
-playlist.get_queue().push(Node('HISTORY', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop'))
-playlist.get_queue().push(Node("Die With A Smile", "Lady Gaga and Bruno Mars", "https://www.youtube.com/watch?v=kPa7bsKwL-c", "Pop"))
-playlist.get_stack().push(Node("APT", "ROSÉ and Bruno Mars", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop"))
+playlist.addMusicToPlaylist('Amazing', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop')
+playlist.addMusicToPlaylist('HISTORY', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop')
+playlist.addMusicToPlaylist("Die With A Smile", "Lady Gaga and Bruno Mars", "https://www.youtube.com/watch?v=kPa7bsKwL-c", "Pop")
+playlist.addMusicToHistory("APT", "ROSÉ and Bruno Mars", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop")
 
 playlist.playAll()
