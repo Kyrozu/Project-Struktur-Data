@@ -1,6 +1,5 @@
 from syncQueueStack import SyncQueueStack
 from graph_algorithm import MusicGraph  # Assuming this is the file with the MusicGraph class
-from node import Node
 
 class MusicApp:
     def __init__(self):
@@ -20,17 +19,19 @@ class MusicApp:
         if results:
             choice = int(input("Pilih nomor musik untuk ditambahkan ke antrean: "))
             if 1 <= choice <= len(results):
-                # Assuming we have a way to get the artist and link for the song
-                # Here we just use a placeholder for the artist and link
-                artist = "Unknown Artist"
-                link = "https://example.com"  # Placeholder link
-                self.playlist.get_queue().push(Node(results[choice - 1], artist, link, "Unknown Genre"))
+                # TODO: perlu dicek sama kenneth + mario
+                song = results[choice - 1].get_judul()
+                artist = results[choice - 1].get_artist()
+                link = results[choice - 1].get_link()
+                genre = results[choice - 1].get_genre()
+                self.playlist.addMusicToPlaylist(song, artist, link, genre)
             else:
                 print("Pilihan tidak valid.")
         else:
             print("Musik tidak ditemukan.")
 
     def add_music_to_graph(self):
+        # TODO: perlu dicek sama kenneth
         title = input("Masukkan judul musik: ")
         artist = input("Masukkan nama penyanyi: ")
         genre = input("Masukkan genre musik: ")
@@ -41,51 +42,65 @@ class MusicApp:
     def play_music_from_queue(self):
         self.playlist.play_music()
 
-    def play_prev_music(self):
-        self.playlist.prev_music()
-
     def show_menu(self):
-        """Display the menu for the user."""
         while True:
             print("\nMenu:")
             print("1. Tambah musik baru ke grafik")
             print("2. Cari musik")
             print("3. Masukkan pilihan rekomendasi musik ke Playlist")
-            print("4. Mainkan musik dari antrean")
+
+            if self.playlist.player.isPlaying() == False:
+                print("4. Mainkan musik dari antrean")
+            else:
+                print("4. Mainkan musik selanjutnya")
+            
             print("5. Mainkan musik sebelumnya")
-            print("6. Keluar")
+            print("0. Keluar")
 
             choice = input("Pilih opsi: ")
 
             if choice == "1":
+                # TODO: not tested
                 self.add_music_to_graph()
 
             elif choice == "2":
+                # TODO: not tested
                 self.searchbar_music()
 
             elif choice == "3":
                 print("Rekomendasi musik: ")
-                # Here you can implement a method to show recommendations
-                # For now, we will just prompt the user to choose a song
-                song = input("Masukkan judul musik untuk ditambahkan ke antrean: ")
-                # Assuming we have a way to get the artist and link for the song
-                artist = "Unknown Artist"
-                link = "https://example.com"  # Placeholder link
-                self.playlist.get_queue().push(Node(song, artist, link, "Unknown Genre"))
+                # TODO: insert function display pilihan recomendasi
+
+                # pilihan = input("Press '0' to cancel or 'the index' to add into playlist: ")
+                # if pilihan != 0:
+                #     song = node.get_judul()
+                #     artist = node.get_artist()
+                #     link = node.get_link()
+                #     genre = node.get_genre()
+                #     self.playlist.addMusicToPlaylist(song, artist, link, genre)
 
             elif choice == "4":
-                self.play_music_from_queue()
+                if self.playlist.player.isPlaying() == False:
+                    self.play_music_from_queue()
+                else:
+                    self.playlist.skipSong()
 
             elif choice == "5":
-                self.play_prev_music()
+                self.playlist.prevSong()
+            
 
-            elif choice == "6":
-                print("Keluar dari aplikasi.")
-                break
+            elif choice == "0":
+                print("\n\nKeluar dari aplikasi.")
+                raise SystemExit(0)
 
             else:
                 print("Opsi tidak valid. Silakan coba lagi.")
 
-if __name__ == "__main__":
-    app = MusicApp()
-    app.show_menu()
+app = MusicApp()
+
+app.playlist.addMusicToPlaylist('Amazing', 'Amazing', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop')
+app.playlist.addMusicToPlaylist('HISTORY', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop')
+app.playlist.addMusicToPlaylist("Die With A Smile", "Lady Gaga and Bruno Mars", "https://www.youtube.com/watch?v=kPa7bsKwL-c", "Pop")
+app.playlist.addMusicToHistory("APT", "ROSÉ and Bruno Mars", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop")
+
+app.show_menu()
