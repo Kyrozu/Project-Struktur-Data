@@ -76,7 +76,7 @@ class Graph:
         plt.title('Music Graph Visualization')
         plt.show()
 
-    # Recommends 5 songs based on the given song's artist and genre
+    # Recommends 5 songs berdasarkan artist dan genre menggunakan BFS
     def recommend_songs(self, song_judul):
         if song_judul not in self.nodes:
             print(f"Song '{song_judul}' not found in the graph.")
@@ -96,59 +96,55 @@ class Graph:
         recommendations = []
         recommended_songs = set()
 
-        while queue and len(recommendations) < 5:
-            current = queue.pop(0)
-            visited.add(current)
+        # (tidak perlu loop while karena hanya perlu return node yg terhubung dgn lagu)
+        # while queue and len(recommendations) < 5:
+        current = queue.pop(0)
+        visited.add(current)
 
-            for neighbor in self.graph.neighbors(current):
+        for neighbor in self.graph.neighbors(current):
+                if len(recommendations) >= 5:
+                    break
+
                 if neighbor not in visited:
                     relation = self.graph[current][neighbor]["relation"]
                     node = self.nodes[neighbor]
 
+                    # utamakan opsi artist yg sama
                     if relation == "same artist" and node.genre == genre and len(recommendations) < 2:
                         if neighbor not in recommended_songs:
                             recommendations.append(node)
                             recommended_songs.add(neighbor)
                     
+                    # utamakan opsi genre yg sama
                     elif relation == "same genre" and node.artist != artist and len(recommendations) < 4:
                         if neighbor not in recommended_songs:
                             recommendations.append(node)
                             recommended_songs.add(neighbor)
-                    
-                    elif relation == "same artist" and node.genre != genre and len(recommendations) < 5:
+
+                    # jika memiliki sisa tempat di array
+                    elif (relation == "same artist" and node.genre != genre) or (relation == "same genre" and node.artist != artist):
                         if neighbor not in recommended_songs:
                             recommendations.append(node)
                             recommended_songs.add(neighbor)
                     
-                    queue.append(neighbor)
+                    # (berhubungan dgn while loop)
+                    # queue.append(neighbor)
 
         return recommendations
 
+# # Test
+# music_graph = Graph()
 
+# # Add songs nodes
+# music_graph.add_node("Blinding Lights", "The Weeknd", "https://www.youtube.com/watch?v=fHI8X4OXluQ", "Pop")
+# music_graph.add_node("Bohemian Rhapsody", "Queen", "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", "Rock")
+# music_graph.add_node("APT", "rose", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop")
+# music_graph.add_node("Espresso", "Sabrina Carpenter", "https://www.youtube.com/watch?v=eVli-tstM5E", "Pop")
+# music_graph.add_node("On The Ground", "rose", "https://www.youtube.com/watch?v=CKZvWhCqx1s", "kPop")
+# music_graph.add_node('Amazing', 'GLITCH', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop')
+# music_graph.add_node('HISTORY', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop')
+# music_graph.add_node("Die With A Smile", "Lady Gaga and Bruno Mars", "https://www.youtube.com/watch?v=kPa7bsKwL-c", "Pop")
 
-
-
-
-music_graph = Graph()
-
-# Add songs nodes
-music_graph.add_node("Blinding Lights", "The Weeknd", "https://www.youtube.com/watch?v=fHI8X4OXluQ", "Pop")
-music_graph.add_node("Bohemian Rhapsody", "Queen", "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", "Rock")
-music_graph.add_node("APT", "rose", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop")
-music_graph.add_node("Espresso", "Sabrina Carpenter", "https://www.youtube.com/watch?v=eVli-tstM5E", "Pop")
-music_graph.add_node("On The Ground", "rose", "https://www.youtube.com/watch?v=CKZvWhCqx1s", "kPop")
-
-
-rec = music_graph.recommend_songs("Blinding Lights")
-
-if rec:
-    print("Recommended Songs:")
-    for idx, song in enumerate(rec, start=1):
-        print(f"{idx}. Title: {song.judul}, Artist: {song.artist}, Genre: {song.genre}, Link: {song.link}")
-else:
-    print("No recommendations found.")
-
-
-music_graph.display_graph()
+# music_graph.display_graph()
 
 

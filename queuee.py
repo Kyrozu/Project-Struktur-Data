@@ -15,7 +15,7 @@ class MusicQueue:
         else:
             self.rear.next = node
             self.rear = node
-        print(f"'{node.get_judul()}' by {node.get_artist()} has been added to the Queue!")
+        print(f"\n ✅ '{node.get_judul()}' by {node.get_artist()} has been added to the Queue!")
 
     def pop(self):
         if self.isEmpty():
@@ -37,7 +37,7 @@ class MusicQueue:
         else:
             node.next = self.front
             self.front = node
-        print(f"'{node.get_judul()}' by {node.get_artist()} has been added to the front of the Queue!")
+        print(f"\n ✅ '{node.get_judul()}' by {node.get_artist()} has been added to the front of the Queue!")
 
 
     def display_queue(self):

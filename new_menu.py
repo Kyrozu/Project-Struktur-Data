@@ -83,8 +83,10 @@ class MusicApp:
     #     if results:
     #         while True:
     #             print("\nHasil pencarian:")
-    #             for idx, (_, song) in enumerate(results, start=1):  # Abaikan key, hanya gunakan node
-    #                 print(f"{idx}. {song.judul} - by {song.artist} ({song.genre})")
+
+    #             # tdk pakai key krn hanya perlu liat node
+    #             for num, (_, song) in enumerate(results, start=1):                     
+    #                 print(f"{num}. {song.judul} - by {song.artist} ({song.genre})")
 
     #             # Pilih musik untuk ditambahkan ke playlist
     #             choice = input("\nPilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
@@ -118,47 +120,51 @@ class MusicApp:
         self.playlist.play_music()
     
     def getRecommendation(self):
+        # get musik yg sedang di putar
         current_song = self.playlist.get_stack().head.get_judul()
-        print(current_song)
 
-        # TODO: insert function display pilihan recomendasi
-        results = []
+        # get rekomendasi berdasarkan musik yg sedang di putar
+        results = self.musicGraph.recommend_songs(current_song)
+        
+        if results:
 
-        while True:
-            print("\nHasil Rekomendasi:")
-            nomor = 1
-            for song in results:
-                    print(f"{nomor}. {song.judul} - by {song.artist} ({song.genre})")
-                    nomor += 1
-                
-            # Pilih musik untuk ditambahkan ke playlist
-            choice = input("\nPilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
-            if choice == "0":
-                print("\nBatal menambahkan musik ke playlist.")
-                break
-            elif choice.isdigit() and 1 <= int(choice) <= len(results):
-                selected_song = results[int(choice) - 1]
-                self.playlist.addMusicToPlaylist(selected_song.judul, selected_song.artist, selected_song.link, selected_song.genre)
-                # print(f"\n'{selected_song.judul}' telah ditambahkan ke playlist.")
-            else:
-                print("\nPilihan tidak valid.")
+            while True:
+                print("\n 🎶 Hasil Rekomendasi 🎶")
+                nomor = 1
+                for song in results:
+                        print(f"{nomor}. {song.judul} - by {song.artist} ({song.genre})")
+                        nomor += 1
+                    
+                # Pilih musik untuk ditambahkan ke playlist
+                choice = input("\nPilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
+                if choice == "0":
+                    print("\n ❌ Batal menambahkan musik ke playlist ❌")
+                    break
+                elif choice.isdigit() and 1 <= int(choice) <= len(results):
+                    selected_song = results[int(choice) - 1]
+                    self.playlist.addMusicToPlaylist(selected_song.judul, selected_song.artist, selected_song.link, selected_song.genre)
+                    # print(f"\n'{selected_song.judul}' telah ditambahkan ke playlist.")
+                else:
+                    print("\n❗Pilihan tidak valid ❗")
 
+        else:
+            print("\n 🚫 Rekomendasi Musik tidak ditemukan 🚫")
 
     def show_menu(self):
         while True:
             print("\nMenu:")
-            print("1. Tambah musik baru ke grafik")
-            print("2. Cari musik")
-            print("3. Masukkan pilihan rekomendasi musik ke Playlist")
+            print("1. Tambah musik baru ke grafik 🎶")
+            print("2. Cari musik 🔍")
+            print("3. Rekomendasi musik 🎧")
 
             if self.playlist.player.isPlaying() == False:
-                print("4. Mainkan musik dari antrean")
+                print("4. Mainkan musik dari antrean ▶️")
             else:
-                print("4. Mainkan musik selanjutnya")
-            
-            print("5. Mainkan musik sebelumnya")
-            print("6. Display graph musik")
-            print("0. Keluar")
+                print("4. Mainkan musik selanjutnya ⏭️")
+                
+            print("5. Mainkan musik sebelumnya ⏮️")
+            print("6. Display graph musik 🖼️")
+            print("0. Keluar ❌")
 
             choice = input("Pilih opsi: ")
 
