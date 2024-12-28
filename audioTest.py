@@ -7,6 +7,7 @@ import vlc
 import yt_dlp as youtube_dl
 import time
 
+# Nathanael / C14230178
 class YouTubeAudioPlayer:
     def __init__(self, sync, initial_volume=50):
         self.sync = sync

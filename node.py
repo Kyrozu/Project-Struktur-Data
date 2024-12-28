@@ -1,3 +1,5 @@
+
+# Nathanael / C14230178
 class Node:
     def __init__(self, judul, artist, link, genre):
         self.judul = judul

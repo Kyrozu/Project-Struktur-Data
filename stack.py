@@ -1,5 +1,6 @@
 from node import Node
 
+# Michael / C14230113
 class stack:
     def __init__(self):
         self.head = None

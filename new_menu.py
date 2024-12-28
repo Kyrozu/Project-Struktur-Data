@@ -1,11 +1,14 @@
 from syncQueueStack import SyncQueueStack
 from new_graph_algorithm import Graph
 
+# Nathanael / C14230178 (membatu connect semua class dengan menu)
+# Mario / C14230194 (pembuat sebagian besar menu)
 class MusicApp:
     def __init__(self):
         self.musicGraph = Graph()         # Initialize the music graph
         self.playlist = SyncQueueStack()  # Initialize the playlist
 
+    # Mario / C14230194
     def searchbar_music(self):
         search = input(" ❓ Masukkan judul / penyanyi / atau genre musik: ").lower()
         results = [] 
@@ -40,6 +43,7 @@ class MusicApp:
         else:
             print("\n 🚫 Musik tidak ditemukan 🚫")
 
+    # Mario / C14230194
     # (JANGAN DI HAPUS) Function search awal pakai BFS (tdk digunakan krn ada node yg bisa sendirian)
     # def searchbar_music(self):
     #     search = input("Masukkan judul / penyanyi / atau genre musik: ").lower()
@@ -150,6 +154,7 @@ class MusicApp:
         else:
             print("\n 🚫 Rekomendasi Musik tidak ditemukan 🚫")
 
+    # Mario / C14230194
     def show_menu(self):
         while True:
             print("\n---------------------------------")

@@ -1,5 +1,6 @@
 from node import Node
 
+# Joice / C14230225
 class MusicQueue:
     def __init__(self):
         self.front = None
