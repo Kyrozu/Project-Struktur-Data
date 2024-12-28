@@ -1,5 +1,6 @@
 from syncQueueStack import SyncQueueStack
-from graph_algorithm import MusicGraph  # Assuming this is the file with the MusicGraph class
+# from graph_algorithm import MusicGraph 
+from new_graph_algorithm import Graph
 
 class MusicApp:
     def __init__(self):
