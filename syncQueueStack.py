@@ -17,7 +17,7 @@ class SyncQueueStack:
 
     def play_music(self):
         if self.queue.isEmpty():
-            print("\nPlaylist Ended\n")
+            print("\n🚫 Playlist Ended 🚫\n")
             return
 
         self.displayQueueStack()
@@ -33,7 +33,7 @@ class SyncQueueStack:
 
     def prev_music(self):
         if self.stack.is_empty():
-            print("No previous song to go back to")
+            print("❌ No previous song to go back to ❌")
             return
 
         # Ambil lagu terakhir dari stack
@@ -56,19 +56,20 @@ class SyncQueueStack:
     #         self.play_music()
 
     def displayQueueStack(self):
+        print("\n🎶 My Playlist 🎶" ,end="")
         self.queue.display_queue()
         if not self.stack.is_empty():
             self.stack.print_stack()
         print()
 
     def skipSong(self):
-        print("Music skipped")
+        print("🚫 Music skipped 🚫")
         self.player.stop()
         self.play_music()
     
     def prevSong(self):
         if not self.stack.is_empty():
-            print("Previous Music")
+            print(" ⏮️   Previous Music ⏮️")
             self.player.stop()
             self.prev_music()
 

@@ -15,7 +15,7 @@ class MusicQueue:
         else:
             self.rear.next = node
             self.rear = node
-        print(f"\n ✅ '{node.get_judul()}' by {node.get_artist()} has been added to the Queue!")
+        print(f" ✅ '{node.get_judul()}' by {node.get_artist()} has been added to the Queue!")
 
     def pop(self):
         if self.isEmpty():
@@ -56,7 +56,7 @@ class MusicQueue:
             print()
             print(f" {index}. {node.get_judul()} ({node.get_genre()}) by {node.get_artist()}", end="")
             index -= 1
-        print(" ----------------- NOW PLAYING")
+        print(" --------------------------- 🎧 NOW PLAYING 🎧")
     
 
 # Contoh Penggunaan Queue

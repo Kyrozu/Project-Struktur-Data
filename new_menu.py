@@ -7,8 +7,8 @@ class MusicApp:
         self.playlist = SyncQueueStack()  # Initialize the playlist
 
     def searchbar_music(self):
-        search = input("❓Masukkan judul / penyanyi / atau genre musik: ").lower()
-        results = []
+        search = input(" ❓ Masukkan judul / penyanyi / atau genre musik: ").lower()
+        results = [] 
 
         # Cari di graph
         for key, node in self.musicGraph.nodes.items():
@@ -20,14 +20,14 @@ class MusicApp:
         # Tampilkan hasil
         if results:
             while True:
-                print("\n 🔍 Hasil pencarian 🔍")
+                print("\n 🔍  Hasil pencarian  🔍")
                 nomor = 1
                 for _, song in results:     # tdk pakai key krn hanya perlu liat node
                     print(f"{nomor}. {song.judul} - by {song.artist} ({song.genre})")
                     nomor += 1
             
                 # Pilih musik untuk ditambahkan ke playlist
-                choice = input("\n❓Pilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
+                choice = input("\n ❓ Pilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
                 if choice == "0":
                     print("\n ❌ Batal menambahkan musik ke playlist ❌")
                     break
@@ -36,7 +36,7 @@ class MusicApp:
                     self.playlist.addMusicToPlaylist(selected_song.judul, selected_song.artist, selected_song.link, selected_song.genre)
                     # print(f"\n'{selected_song.judul}' telah ditambahkan ke playlist.")
                 else:
-                    print("\n❗Pilihan tidak valid❗")
+                    print("\n❗ Pilihan tidak valid❗")
         else:
             print("\n 🚫 Musik tidak ditemukan 🚫")
 
@@ -109,10 +109,10 @@ class MusicApp:
 
 
     def add_music_to_graph(self):
-        title = input("Masukkan judul musik: ")
-        artist = input("Masukkan nama penyanyi: ")
-        genre = input("Masukkan genre musik: ")
-        link = input("Masukkan link musik: ")
+        title = input(" 🏷️   Masukkan judul musik: ")
+        artist = input(" 🎤  Masukkan nama penyanyi: ")
+        genre = input(" 🎧  Masukkan genre musik: ")
+        link = input(" 🔗  Masukkan link musik: ")
         self.musicGraph.add_node(title,artist,link,genre)
         print(f" ✅ '{title}' by {artist} added to the graph.")
 
@@ -129,14 +129,14 @@ class MusicApp:
         if results:
 
             while True:
-                print("\n 🎧 Hasil Rekomendasi 🎧")
+                print("\n 🎧  Hasil Rekomendasi  🎧")
                 nomor = 1
                 for song in results:
                         print(f"{nomor}. {song.judul} - by {song.artist} ({song.genre})")
                         nomor += 1
                     
                 # Pilih musik untuk ditambahkan ke playlist
-                choice = input("\n❓Pilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
+                choice = input("\n ❓ Pilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
                 if choice == "0":
                     print("\n ❌ Batal menambahkan musik ke playlist ❌")
                     break
@@ -152,7 +152,8 @@ class MusicApp:
 
     def show_menu(self):
         while True:
-            print("\nMenu:")
+            print("\n---------------------------------")
+            print("Menu:")
             print("1. Tambah musik baru ke grafik ➕")
             print("2. Cari musik 🔍")
             print("3. Rekomendasi musik 🎧")
@@ -165,8 +166,9 @@ class MusicApp:
             print("5. Mainkan musik sebelumnya ⏮️")
             print("6. Display graph musik 🖼️")
             print("0. Keluar ❌")
-
-            choice = input("❓Pilih opsi: ")
+            print("---------------------------------")
+            choice = input("❓ Pilih opsi: ")
+            print("---------------------------------\n")
 
             if choice == "1":
                 self.add_music_to_graph()
@@ -190,7 +192,7 @@ class MusicApp:
                 self.musicGraph.display_graph()
 
             elif choice == "0":
-                print("\n\n Keluar dari aplikasi 👋")
+                print("\n Keluar dari aplikasi 👋 \n\n")
                 raise SystemExit(0)
 
             else:
