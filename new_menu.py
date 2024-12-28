@@ -7,7 +7,7 @@ class MusicApp:
         self.playlist = SyncQueueStack()  # Initialize the playlist
 
     def searchbar_music(self):
-        search = input("Masukkan judul / penyanyi / atau genre musik: ").lower()
+        search = input("❓Masukkan judul / penyanyi / atau genre musik: ").lower()
         results = []
 
         # Cari di graph
@@ -20,25 +20,25 @@ class MusicApp:
         # Tampilkan hasil
         if results:
             while True:
-                print("\nHasil pencarian:")
+                print("\n 🔍 Hasil pencarian 🔍")
                 nomor = 1
                 for _, song in results:     # tdk pakai key krn hanya perlu liat node
                     print(f"{nomor}. {song.judul} - by {song.artist} ({song.genre})")
                     nomor += 1
             
                 # Pilih musik untuk ditambahkan ke playlist
-                choice = input("\nPilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
+                choice = input("\n❓Pilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
                 if choice == "0":
-                    print("\nBatal menambahkan musik ke playlist.")
+                    print("\n ❌ Batal menambahkan musik ke playlist ❌")
                     break
                 elif choice.isdigit() and 1 <= int(choice) <= len(results):
                     selected_song = results[int(choice) - 1][1] 
                     self.playlist.addMusicToPlaylist(selected_song.judul, selected_song.artist, selected_song.link, selected_song.genre)
                     # print(f"\n'{selected_song.judul}' telah ditambahkan ke playlist.")
                 else:
-                    print("\nPilihan tidak valid.")
+                    print("\n❗Pilihan tidak valid❗")
         else:
-            print("\nMusik tidak ditemukan.")
+            print("\n 🚫 Musik tidak ditemukan 🚫")
 
     # (JANGAN DI HAPUS) Function search awal pakai BFS (tdk digunakan krn ada node yg bisa sendirian)
     # def searchbar_music(self):
@@ -114,7 +114,7 @@ class MusicApp:
         genre = input("Masukkan genre musik: ")
         link = input("Masukkan link musik: ")
         self.musicGraph.add_node(title,artist,link,genre)
-        print(f"'{title}' by {artist} added to the graph.")
+        print(f" ✅ '{title}' by {artist} added to the graph.")
 
     def play_music_from_queue(self):
         self.playlist.play_music()
@@ -129,14 +129,14 @@ class MusicApp:
         if results:
 
             while True:
-                print("\n 🎶 Hasil Rekomendasi 🎶")
+                print("\n 🎧 Hasil Rekomendasi 🎧")
                 nomor = 1
                 for song in results:
                         print(f"{nomor}. {song.judul} - by {song.artist} ({song.genre})")
                         nomor += 1
                     
                 # Pilih musik untuk ditambahkan ke playlist
-                choice = input("\nPilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
+                choice = input("\n❓Pilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
                 if choice == "0":
                     print("\n ❌ Batal menambahkan musik ke playlist ❌")
                     break
@@ -153,7 +153,7 @@ class MusicApp:
     def show_menu(self):
         while True:
             print("\nMenu:")
-            print("1. Tambah musik baru ke grafik 🎶")
+            print("1. Tambah musik baru ke grafik ➕")
             print("2. Cari musik 🔍")
             print("3. Rekomendasi musik 🎧")
 
@@ -166,7 +166,7 @@ class MusicApp:
             print("6. Display graph musik 🖼️")
             print("0. Keluar ❌")
 
-            choice = input("Pilih opsi: ")
+            choice = input("❓Pilih opsi: ")
 
             if choice == "1":
                 self.add_music_to_graph()
@@ -190,11 +190,11 @@ class MusicApp:
                 self.musicGraph.display_graph()
 
             elif choice == "0":
-                print("\n\nKeluar dari aplikasi.")
+                print("\n\n Keluar dari aplikasi 👋")
                 raise SystemExit(0)
 
             else:
-                print("Opsi tidak valid. Silakan coba lagi.")
+                print("❌ Opsi tidak valid. Silakan coba lagi.")
 
 app = MusicApp()
 
@@ -207,7 +207,6 @@ app.musicGraph.add_node("On The Ground", "rose", "https://www.youtube.com/watch?
 app.musicGraph.add_node('Amazing', 'GLITCH', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop')
 app.musicGraph.add_node('HISTORY', 'Whale Taylor', 'https://www.youtube.com/watch?v=ejC-4FBs4_w&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=16', 'Pop')
 app.musicGraph.add_node("Die With A Smile", "Lady Gaga and Bruno Mars", "https://www.youtube.com/watch?v=kPa7bsKwL-c", "Pop")
-app.musicGraph.add_node("APT", "ROSÉ and Bruno Mars", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop")
 
 # anggap sudah ada playlist sebelumnya
 app.playlist.addMusicToPlaylist('Amazing', 'GLITCH', 'https://www.youtube.com/watch?v=NAZE98P6NvY&list=PLl9rPoFrwA56scu3xTguJpbHpP8Sd2r1_&index=2', 'Pop')
