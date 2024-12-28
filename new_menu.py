@@ -1,7 +1,7 @@
 from syncQueueStack import SyncQueueStack
 from new_graph_algorithm import Graph
 
-# Nathanael / C14230178 (membatu connect semua class dengan menu)
+# Nathanael / C14230178 (membatu connect semua class dengan class menu)
 # Mario / C14230194 (pembuat sebagian besar menu)
 class MusicApp:
     def __init__(self):
