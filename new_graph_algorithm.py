@@ -9,7 +9,6 @@ class Graph:
         self.nodes = {}
         
     # Yovan / C14230068
-    # Add a node to the graph
     def add_node(self, judul, artist, link, genre):
         node = Node(judul, artist, link, genre)
 
@@ -33,16 +32,16 @@ class Graph:
             # print(f"Node 'Genre: {node.genre}' added.")
             self._add_edges_for_new_node(node)  # Add edges based on same artist or genre
         
-    # Kenneth Leonard / C142300
-    # Helper function to add edges based on same artist or genre
+    # Kenneth Leonard / C14230067
+    # Function add edges automatic berdasarkan artist / genre sama
     def _add_edges_for_new_node(self, node):
-        # If the node has an artist, add edges with songs by the same artist
+        # Kalo artist nya sama
         if node.artist:
             for existing_node in self.nodes.values():
                 if existing_node != node and existing_node.artist.lower() == node.artist.lower():
                     self.add_edge(existing_node, node, "same artist")
         
-        # If the node has a genre, add edges with songs in the same genre
+        # Kalo genre nya sama
         if node.genre:
             for existing_node in self.nodes.values():
                 if existing_node != node and existing_node.genre.lower() == node.genre.lower():
@@ -70,7 +69,6 @@ class Graph:
     # Yovan / C14230068
     # Visualize the graph using matplotlib and networkx
     def display_graph(self):
-        
         plt.figure(figsize=(12, 12))
         pos = nx.spring_layout(self.graph, seed=42)
         nx.draw(self.graph, pos, with_labels=True, node_size=3000, node_color='skyblue', font_size=10, font_weight='bold', edge_color='gray')
@@ -79,7 +77,7 @@ class Graph:
         plt.title('Music Graph Visualization')
         plt.show()
 
-    # Kenneth Leonard / C142300
+    # Kenneth Leonard / C14230067
     # Recommends 5 songs berdasarkan artist dan genre menggunakan BFS
     def recommend_songs(self, song_judul):
         if song_judul not in self.nodes:
