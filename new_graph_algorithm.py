@@ -12,6 +12,10 @@ class Graph:
     def add_node(self, judul, artist, link, genre):
         node = Node(judul, artist, link, genre)
 
+        if node.judul and node.judul in self.nodes:
+            print(f"Node Music '{node.judul}' already exists.")
+            return
+
         if node.judul and node.judul not in self.nodes:
             self.nodes[node.judul] = node
             self.graph.add_node(node.judul, type="song")
@@ -27,8 +31,7 @@ class Graph:
             self.graph.add_node(node.genre, type="genre")
             # print(f"Node 'Genre: {node.genre}' added.")
             self._add_edges_for_new_node(node)  # Add edges based on same artist or genre
-        else:
-            print(f"Node '{node.judul if node.judul else node.artist}' already exists.")
+        
 
     # Helper function to add edges based on same artist or genre
     def _add_edges_for_new_node(self, node):
@@ -160,20 +163,22 @@ class Graph:
 
 
 
-# # Initialize the graph
-# music_graph = Graph()
+# Initialize the graph
+music_graph = Graph()
 
-# # Add songs nodes
-# music_graph.add_node("Blinding Lights", "The Weeknd", "https://www.youtube.com/watch?v=fHI8X4OXluQ", "Pop")
-# music_graph.add_node("Bohemian Rhapsody", "Queen", "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", "Rock")
-# music_graph.add_node("APT", "rose", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop")
-# music_graph.add_node("Espresso", "Sabrina Carpenter", "https://www.youtube.com/watch?v=eVli-tstM5E", "Pop")
-# music_graph.add_node("On The Ground", "rose", "https://www.youtube.com/watch?v=CKZvWhCqx1s", "kPop")
+# Add songs nodes
+music_graph.add_node("Blinding Lights", "The Weeknd", "https://www.youtube.com/watch?v=fHI8X4OXluQ", "Pop")
+music_graph.add_node("Bohemian Rhapsody", "Queen", "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", "Rock")
+music_graph.add_node("APT", "rose", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop")
+music_graph.add_node("Espresso", "Sabrina Carpenter", "https://www.youtube.com/watch?v=eVli-tstM5E", "Pop")
+music_graph.add_node("On The Ground", "rose", "https://www.youtube.com/watch?v=CKZvWhCqx1s", "kPop")
+
+music_graph.add_node("Espresso", "Sabrina Carpenter", "https://www.youtube.com/watch?v=eVli-tstM5E", "Pop")
 
 
-# # Recommend songs based on 'Blinding Lights'
+# Recommend songs based on 'Blinding Lights'
 # music_graph.recommend_songs("Blinding Lights")
 
-# music_graph.display_graph()
+music_graph.display_graph()
 
 
