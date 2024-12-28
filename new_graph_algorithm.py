@@ -7,7 +7,8 @@ class Graph:
     def __init__(self):
         self.graph = nx.Graph()
         self.nodes = {}
-
+        
+    # Yovan / C14230068
     # Add a node to the graph
     def add_node(self, judul, artist, link, genre):
         node = Node(judul, artist, link, genre)
@@ -32,7 +33,7 @@ class Graph:
             # print(f"Node 'Genre: {node.genre}' added.")
             self._add_edges_for_new_node(node)  # Add edges based on same artist or genre
         
-
+    # Kenneth Leonard / C142300
     # Helper function to add edges based on same artist or genre
     def _add_edges_for_new_node(self, node):
         # If the node has an artist, add edges with songs by the same artist
@@ -47,6 +48,7 @@ class Graph:
                 if existing_node != node and existing_node.genre.lower() == node.genre.lower():
                     self.add_edge(existing_node, node, "same genre")
 
+    # Yovan / C14230068
     # Add an edge between two nodes in the graph with a relation
     def add_edge(self, node1, node2, relation):
         # Check if node1 exists in the graph
@@ -65,6 +67,7 @@ class Graph:
         self.graph.add_edge(node1_id, node2_id, relation=relation)
         # print(f"Edge between '{node1_id}' and '{node2_id}' with relation '{relation}' added.")
 
+    # Yovan / C14230068
     # Visualize the graph using matplotlib and networkx
     def display_graph(self):
         
@@ -76,6 +79,7 @@ class Graph:
         plt.title('Music Graph Visualization')
         plt.show()
 
+    # Kenneth Leonard / C142300
     # Recommends 5 songs berdasarkan artist dan genre menggunakan BFS
     def recommend_songs(self, song_judul):
         if song_judul not in self.nodes:
