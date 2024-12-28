@@ -116,6 +116,33 @@ class MusicApp:
 
     def play_music_from_queue(self):
         self.playlist.play_music()
+    
+    def getRecommendation(self):
+        current_song = self.playlist.get_stack().head.get_judul()
+        print(current_song)
+
+        # TODO: insert function display pilihan recomendasi
+        results = []
+
+        while True:
+            print("\nHasil Rekomendasi:")
+            nomor = 1
+            for song in results:
+                    print(f"{nomor}. {song.judul} - by {song.artist} ({song.genre})")
+                    nomor += 1
+                
+            # Pilih musik untuk ditambahkan ke playlist
+            choice = input("\nPilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
+            if choice == "0":
+                print("\nBatal menambahkan musik ke playlist.")
+                break
+            elif choice.isdigit() and 1 <= int(choice) <= len(results):
+                selected_song = results[int(choice) - 1]
+                self.playlist.addMusicToPlaylist(selected_song.judul, selected_song.artist, selected_song.link, selected_song.genre)
+                # print(f"\n'{selected_song.judul}' telah ditambahkan ke playlist.")
+            else:
+                print("\nPilihan tidak valid.")
+
 
     def show_menu(self):
         while True:
@@ -142,17 +169,7 @@ class MusicApp:
                 self.searchbar_music()
 
             elif choice == "3":
-                print("Rekomendasi musik: ")
-                # TODO: insert function display pilihan recomendasi
-                result = []
-
-                # pilihan = input("Press '0' to cancel or 'the index' to add into playlist: ")
-                # if pilihan != 0:
-                #     song = node.get_judul()
-                #     artist = node.get_artist()
-                #     link = node.get_link()
-                #     genre = node.get_genre()
-                #     self.playlist.addMusicToPlaylist(song, artist, link, genre)
+                self.getRecommendation()
 
             elif choice == "4":
                 if self.playlist.player.isPlaying() == False:
