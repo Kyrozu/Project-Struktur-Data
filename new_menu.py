@@ -8,29 +8,42 @@ class MusicApp:
         self.playlist = SyncQueueStack()  # Initialize the playlist
 
     def searchbar_music(self):
-        # Function to search music by title, artist, or album
-        search = input("Masukkan judul musik, penyanyi, atau album musik: ")
+        search = input("Masukkan judul / penyanyi / atau genre musik: ").lower()
         results = []
-        # TODO: update untuk new file
-        # for genre, songs in self.graph.graph["music"].items():
-        #     for song in songs:
-        #         if search.lower() in song.lower():
-        #             results.append(song)
-        #             print(f"Judul: {song}, Genre: {genre}")
-        
-        # if results:
-        #     choice = int(input("Pilih nomor musik untuk ditambahkan ke antrean: "))
-        #     if 1 <= choice <= len(results):
-        #         # TODO: perlu dicek sama kenneth + mario
-        #         song = results[choice - 1].get_judul()
-        #         artist = results[choice - 1].get_artist()
-        #         link = results[choice - 1].get_link()
-        #         genre = results[choice - 1].get_genre()
-        #         self.playlist.addMusicToPlaylist(song, artist, link, genre)
-        #     else:
-        #         print("Pilihan tidak valid.")
-        # else:
-        #     print("Musik tidak ditemukan.")
+
+        # Cari di graph
+        for node in self.graph.nodes.items():
+            if (search in node.judul.lower() or 
+                search in node.artist.lower() or 
+                search in node.genre.lower()):
+                results.append(node)
+
+        # Tampilkan hasil
+        if results:
+            print("\nHasil pencarian:")
+            nomor = 1
+            for song in results:
+                print(f"{nomor}. {song.judul} - {song.artist} ({song.genre})")
+                nomor += 1
+
+            # Pilih musik untuk ditambahkan ke playlist
+            choice = input("Pilih nomor musik untuk ditambahkan ke antrean (0 untuk batal): ")
+            if choice == "0":
+                print("Batal menambahkan ke antrean.")
+            elif choice.isdigit() and 1 <= int(choice) <= len(results):
+                selected_song = results[int(choice) - 1]
+                self.playlist.addMusicToPlaylist(
+                    selected_song.judul, 
+                    selected_song.artist, 
+                    selected_song.link, 
+                    selected_song.genre
+                )
+                print(f"'{selected_song.judul}' telah ditambahkan ke playlist.")
+            else:
+                print("Pilihan tidak valid.")
+        else:
+            print("Musik tidak ditemukan.")
+
 
     def add_music_to_graph(self):
         title = input("Masukkan judul musik: ")
