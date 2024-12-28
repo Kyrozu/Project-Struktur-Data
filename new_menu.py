@@ -3,7 +3,7 @@ from new_graph_algorithm import Graph
 
 class MusicApp:
     def __init__(self):
-        self.musicGraph = Graph()              # Initialize the music graph
+        self.musicGraph = Graph()         # Initialize the music graph
         self.playlist = SyncQueueStack()  # Initialize the playlist
 
     def searchbar_music(self):
@@ -25,7 +25,6 @@ class MusicApp:
                 for _, song in results:     # tdk pakai key krn hanya perlu liat node
                     print(f"{nomor}. {song.judul} - by {song.artist} ({song.genre})")
                     nomor += 1
-
             
                 # Pilih musik untuk ditambahkan ke playlist
                 choice = input("\nPilih nomor musik untuk ditambahkan ke playlist (0 untuk close): ")
@@ -41,8 +40,7 @@ class MusicApp:
         else:
             print("\nMusik tidak ditemukan.")
 
-    # Function search awal pakai BFS (tdk digunakan krn ada node yg bisa sendirian)
-    #
+    # (JANGAN DI HAPUS) Function search awal pakai BFS (tdk digunakan krn ada node yg bisa sendirian)
     # def searchbar_music(self):
     #     search = input("Masukkan judul / penyanyi / atau genre musik: ").lower()
     #     results = []
@@ -65,7 +63,7 @@ class MusicApp:
     #             continue
     #         visited.add(current_key)
 
-    #         # Akses node dari self.nodes
+    #         # Akses node dari nodes
     #         current_node = self.musicGraph.nodes.get(current_key)
     #         if not current_node:
     #             continue
@@ -76,7 +74,7 @@ class MusicApp:
     #             search in current_node.genre.lower()):
     #             results.append((current_key, current_node))
 
-    #         # Tambahkan semua tetangga ke queue (gunakan self.graph.neighbors)
+    #         # Tambahkan semua tetangga ke queue (pakai neighbors bawaan networkx)
     #         for neighbor in self.musicGraph.graph.neighbors(current_key):
     #             if neighbor not in visited:
     #                 queue.append(neighbor)
