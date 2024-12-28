@@ -15,17 +15,17 @@ class Graph:
         if node.judul and node.judul not in self.nodes:
             self.nodes[node.judul] = node
             self.graph.add_node(node.judul, type="song")
-            print(f"Node '{node.judul}' of type 'song' added.")
+            # print(f"Node '{node.judul}' of type 'song' added.")
             self._add_edges_for_new_node(node)  # Add edges based on same artist or genre
         elif node.artist and node.artist not in self.nodes:
             self.nodes[node.artist] = node
             self.graph.add_node(node.artist, type="artist")
-            print(f"Node 'Artist: {node.artist}' added.")
+            # print(f"Node 'Artist: {node.artist}' added.")
             self._add_edges_for_new_node(node)  # Add edges based on same artist or genre
         elif node.genre and node.genre not in self.nodes:
             self.nodes[node.genre] = node
             self.graph.add_node(node.genre, type="genre")
-            print(f"Node 'Genre: {node.genre}' added.")
+            # print(f"Node 'Genre: {node.genre}' added.")
             self._add_edges_for_new_node(node)  # Add edges based on same artist or genre
         else:
             print(f"Node '{node.judul if node.judul else node.artist}' already exists.")
@@ -35,13 +35,13 @@ class Graph:
         # If the node has an artist, add edges with songs by the same artist
         if node.artist:
             for existing_node in self.nodes.values():
-                if existing_node != node and existing_node.artist == node.artist:
+                if existing_node != node and existing_node.artist.lower() == node.artist.lower():
                     self.add_edge(existing_node, node, "same artist")
         
         # If the node has a genre, add edges with songs in the same genre
         if node.genre:
             for existing_node in self.nodes.values():
-                if existing_node != node and existing_node.genre == node.genre:
+                if existing_node != node and existing_node.genre.lower() == node.genre.lower():
                     self.add_edge(existing_node, node, "same genre")
 
     # Add an edge between two nodes in the graph with a relation
@@ -60,7 +60,7 @@ class Graph:
 
         # Add the edge with the appropriate relation
         self.graph.add_edge(node1_id, node2_id, relation=relation)
-        print(f"Edge between '{node1_id}' and '{node2_id}' with relation '{relation}' added.")
+        # print(f"Edge between '{node1_id}' and '{node2_id}' with relation '{relation}' added.")
 
     # Visualize the graph using matplotlib and networkx
     def display_graph(self):
@@ -160,20 +160,20 @@ class Graph:
 
 
 
-# Initialize the graph
-music_graph = Graph()
+# # Initialize the graph
+# music_graph = Graph()
 
-# Add songs nodes
-music_graph.add_node("Blinding Lights", "The Weeknd", "https://www.youtube.com/watch?v=fHI8X4OXluQ", "Pop")
-music_graph.add_node("Bohemian Rhapsody", "Queen", "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", "Rock")
-music_graph.add_node("APT", "rose", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop")
-music_graph.add_node("Espresso", "Sabrina Carpenter", "https://www.youtube.com/watch?v=eVli-tstM5E", "Pop")
-music_graph.add_node("On The Ground", "rose", "https://www.youtube.com/watch?v=CKZvWhCqx1s", "kPop")
+# # Add songs nodes
+# music_graph.add_node("Blinding Lights", "The Weeknd", "https://www.youtube.com/watch?v=fHI8X4OXluQ", "Pop")
+# music_graph.add_node("Bohemian Rhapsody", "Queen", "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", "Rock")
+# music_graph.add_node("APT", "rose", "https://www.youtube.com/watch?v=ekr2nIex040", "Pop")
+# music_graph.add_node("Espresso", "Sabrina Carpenter", "https://www.youtube.com/watch?v=eVli-tstM5E", "Pop")
+# music_graph.add_node("On The Ground", "rose", "https://www.youtube.com/watch?v=CKZvWhCqx1s", "kPop")
 
 
-# Recommend songs based on 'Blinding Lights'
-music_graph.recommend_songs("Blinding Lights")
+# # Recommend songs based on 'Blinding Lights'
+# music_graph.recommend_songs("Blinding Lights")
 
-music_graph.display_graph()
+# music_graph.display_graph()
 
 
